@@ -36,6 +36,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,14 +12,34 @@ namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
         private static readonly string sr_ChooseHeightMessage = "Please choose the board height " + sr_RangeMessage;
         private static readonly string sr_DimensionInvalidInputMessage = "Invalid input!\nPlease enter an integer";
         private static readonly string sr_ChooseLengthMessage = "Please choose the board length " + sr_RangeMessage;
-        
+        private static readonly string sr_ChooseNumberOfPlayerMessage = "Please chose the number of player (1 for single player, 2 for two players)";
+
 
         public static void Main()
         {
             int gameBoardHeight;
             int gameBoardLength;
+            int numOfPlayers;
             showWelcomeMessage();
+            getNumberOfPlayers(out numOfPlayers);
             getGameBoardDimensions(out gameBoardHeight, out gameBoardLength);
+            GameManager gm = new GameManager(numOfPlayers, gameBoardHeight, gameBoardLength);
+            gm.StartGame();
+
+            //System.Console.WriteLine("num of players:" + numOfPlayers + "dimensions" + gameBoardHeight + " " + gameBoardLength);
+        }
+
+        private static void getNumberOfPlayers(out int i_NumberOfPlayers)
+        {
+            bool checkInput = false;
+            string userInput = "";
+            
+            do
+            {
+                System.Console.WriteLine(sr_ChooseNumberOfPlayerMessage);
+                userInput = System.Console.ReadLine();
+                checkInput = int.TryParse(userInput, out i_NumberOfPlayers);
+            } while (!checkInput || i_NumberOfPlayers < 1 || i_NumberOfPlayers > 2);
         }
 
         /*
@@ -37,9 +57,6 @@ namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
             bool validInputLength = true;
             bool confirmChoice = true;
             string userInput = "";
-            //Initial decleration.
-            i_GameBoardHeight = -1;
-            i_GameBoardLength = -1;
 
             do
             {
