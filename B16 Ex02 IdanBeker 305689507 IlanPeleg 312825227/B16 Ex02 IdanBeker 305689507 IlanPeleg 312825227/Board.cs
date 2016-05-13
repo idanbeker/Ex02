@@ -19,15 +19,16 @@ class Board
         this.m_BoardHeight = i_BoardHeight;
         this.m_BoardLength = i_BoardLength;
         this.m_Board = new eBoardMarks[m_BoardHeight, m_BoardLength];
+       
     }
 
     override
     public string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = m_BoardHeight - 1; i <= 0; i--)
+        for (int i = m_BoardHeight - 1; i >= 0; i--)
         {
-            for (int j = m_BoardLength - 1; j <= 0; j--)
+            for (int j = 0; j < m_BoardLength; j++)
             {
                 switch (m_Board[i, j])
                 {
