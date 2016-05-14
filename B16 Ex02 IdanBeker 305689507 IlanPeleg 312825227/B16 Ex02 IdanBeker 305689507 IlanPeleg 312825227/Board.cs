@@ -1,7 +1,7 @@
 ﻿
 
 using System.Text;
-
+//TODO: add namespace
 class Board
 {
     private static readonly string sr_EmptyCell = "[ ]";

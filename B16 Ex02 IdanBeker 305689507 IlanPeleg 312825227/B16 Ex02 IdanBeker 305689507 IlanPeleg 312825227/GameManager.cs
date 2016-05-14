@@ -1,9 +1,13 @@
 ﻿
 using System;
+using Ex02.ConsoleUtils;
 
+
+//TODO: add namespace
+//TODO: in the msg of asking the player to move, print which player we refer to
 class GameManager
 {
-    //TODO: organize the startgame func in functions
+    //TODO: show the board in the begining...
     private int m_PlayerOneScore;
     private int m_PlayerTwoScore;
     private Board m_GameBoard;
@@ -32,12 +36,16 @@ class GameManager
             {
                 manageTurn(1);
                 playerIndex++;
+                /// Clear console
+                Ex02.ConsoleUtils.Screen.Clear();
             }
             else
             {
                 if (m_GameMode == eGameMode.MultyPlayer)
                 {
                     manageTurn(2);
+                    /// Clear console
+                    Ex02.ConsoleUtils.Screen.Clear();
                 }
                 else //the game is single-player. the computer chooses randomly empty column
                 {
@@ -45,6 +53,7 @@ class GameManager
                 }
                 playerIndex--;
             }
+           
             System.Console.WriteLine(m_GameBoard.ToString());
             //check if the board is full-meaning we have a tie
             handleTieCase();
@@ -131,6 +140,8 @@ class GameManager
     //if yes- initialize the board
     private void newGame()
     {
+        /// Clear console
+        Ex02.ConsoleUtils.Screen.Clear();
         System.Console.WriteLine(m_GameBoard.ToString());//show the last-updated board
         bool wantsAnotherGame = false;
         string userInput;

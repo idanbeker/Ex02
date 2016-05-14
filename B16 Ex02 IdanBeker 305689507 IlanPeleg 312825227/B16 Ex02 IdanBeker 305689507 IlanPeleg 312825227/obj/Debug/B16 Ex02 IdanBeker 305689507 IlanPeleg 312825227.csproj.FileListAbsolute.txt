@@ -10,3 +10,4 @@ C:\c-sharp-2\Ex02\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\B16 Ex02 Idan
 C:\c-sharp-2\Ex02\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\obj\Debug\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227.csprojResolveAssemblyReference.cache
 C:\c-sharp-2\Ex02\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\obj\Debug\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227.exe
 C:\c-sharp-2\Ex02\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\obj\Debug\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227.pdb
+C:\c-sharp-2\Ex02\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\B16 Ex02 IdanBeker 305689507 IlanPeleg 312825227\bin\Debug\Ex02.ConsoleUtils.dll
