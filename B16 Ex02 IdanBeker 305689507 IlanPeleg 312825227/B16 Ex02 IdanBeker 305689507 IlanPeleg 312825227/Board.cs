@@ -50,21 +50,126 @@ class Board
         return stringBuilder.ToString();
     }
 
-    public bool EnterMove(int i_ColumnToMark, int i_Player)
+    public bool EnterMove(int i_ColumnToMark, int i_Player, out bool isWon)
     {
-        bool moveSetFlag = false;
-
-        for (int i = 0; i < m_BoardHeight; i++)
+        isWon = false; //indicates whether the last move was a winnig move
+        bool moveSetFlag = m_Board[m_BoardHeight-1,i_ColumnToMark]==eBoardMarks.Empty;//check if the column is full
+        if (moveSetFlag) //if there is a place for this coin - insert it
         {
-            if (m_Board[i, i_ColumnToMark] == eBoardMarks.Empty)
+            for (int i = 0; i < m_BoardHeight; i++)
             {
-                m_Board[i, i_ColumnToMark] = i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
-                m_BoardFreeSpace--;
-                moveSetFlag = true;
-                break;
+                if (m_Board[i, i_ColumnToMark] == eBoardMarks.Empty)
+                {
+                    m_Board[i, i_ColumnToMark] = i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
+                    if (GameIsWon(i_Player, i, i_ColumnToMark))
+                    {
+                        System.Console.WriteLine("there is a winner!");
+                        isWon = true;
+                        break;
+                    }
+                    m_BoardFreeSpace--;
+                    moveSetFlag = true;
+                    break;
+                }
             }
         }
         return moveSetFlag;
+    }
+    
+
+    private bool isThereWinningRow (int i_Player, int i_Row, int i_Col) //TODO: change type of player to enum
+    {
+        eBoardMarks valueToCheck= i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
+        int counterOfSequence = 0, currentCol = i_Col;
+        
+        //count the player's coins in the specified row - from the given cell to the right
+        while (currentCol < m_BoardLength && m_Board[i_Row, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentCol++;
+        }
+        currentCol = i_Col - 1; //now we want to count to the left
+        //count the player's coins in the specified row - from the given cell to the left
+        while (currentCol >= 0 && m_Board[i_Row, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentCol--;
+        }
+
+        return (counterOfSequence>=4);
+    }
+
+    private bool isThereWinningCol(int i_Player, int i_Row, int i_Col) //TODO: change type of player to enum
+    {
+        eBoardMarks valueToCheck = i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
+        int counterOfSequence = 0, currentRow = i_Row;
+
+        //count the player's coins in the specified col - from the given cell to the top
+        while (currentRow < m_BoardHeight && m_Board[currentRow, i_Col] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow++;
+        }
+        currentRow = i_Row - 1; //now we want to count to the bottom
+        //count the player's coins in the specified col - from the given cell to the bottom
+        while (currentRow >= 0 && m_Board[currentRow, i_Col] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow--;
+        }
+
+        return (counterOfSequence >= 4);
+    }
+
+    private bool isThereWinningMainDiagonal(int i_Player, int i_Row, int i_Col) //TODO: change type of player to enum
+    {
+        eBoardMarks valueToCheck = i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
+        int counterOfSequence = 0, currentRow = i_Row, currentCol = i_Col;
+
+        //count the player's coins in the specified main diagonal - from the given cell to the right-up
+        while (currentRow < m_BoardHeight && currentCol < m_BoardLength && m_Board[currentRow, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow++;
+            currentCol++;
+        }
+        currentRow = i_Row - 1; //now we want to count to the left-down
+        currentCol = i_Col - 1;
+        //count the player's coins in the specified row - from the given cell to the left-down
+        while (currentRow >= 0 && currentCol>=0 && m_Board[currentRow, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow--;
+            currentCol--;
+        }
+
+        return (counterOfSequence >= 4);
+    }
+
+
+    private bool isThereWinningSecondaryDiagonal(int i_Player, int i_Row, int i_Col) //TODO: change type of player to enum
+    {
+        eBoardMarks valueToCheck = i_Player == 1 ? eBoardMarks.PlayerOne : eBoardMarks.PlayerTwo;
+        int counterOfSequence = 0, currentRow = i_Row, currentCol = i_Col;
+
+        //count the player's coins in the specified main diagonal - from the given cell to the left-up
+        while (currentRow < m_BoardHeight && currentCol >= 0 && m_Board[currentRow, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow++;
+            currentCol--;
+        }
+        currentRow = i_Row - 1; //now we want to count to the right-down
+        currentCol = i_Col + 1;
+        //count the player's coins in the specified row - from the given cell to the right-down
+        while (currentRow >= 0 && currentCol < m_BoardLength && m_Board[currentRow, currentCol] == valueToCheck)
+        {
+            counterOfSequence++;
+            currentRow--;
+            currentCol++;
+        }
+
+        return (counterOfSequence >= 4);
     }
 
     public bool BoardIsFull()
@@ -72,10 +177,12 @@ class Board
         return m_BoardFreeSpace == 0;
     }
 
-    public bool GameIsWon()
+    public bool GameIsWon(int i_Player, int i_Row, int i_Col)
     {
-        //TODO Implement.
-        return false;
+        return (isThereWinningRow(i_Player, i_Row,i_Col) ||
+            isThereWinningCol(i_Player, i_Row, i_Col) ||
+            isThereWinningMainDiagonal(i_Player, i_Row, i_Col) ||
+            isThereWinningSecondaryDiagonal(i_Player, i_Row, i_Col));
     }
 
     public enum eBoardMarks

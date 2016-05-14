@@ -2,6 +2,8 @@
 
 
 namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
+
+    //TODO: check validity of input
 {
     class Program
     {
@@ -19,7 +21,7 @@ namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
         {
             int gameBoardHeight;
             int gameBoardLength;
-            int numOfPlayers;
+            int numOfPlayers; //TODO: change it from int
             showWelcomeMessage();
             getNumberOfPlayers(out numOfPlayers);
             getGameBoardDimensions(out gameBoardHeight, out gameBoardLength);
