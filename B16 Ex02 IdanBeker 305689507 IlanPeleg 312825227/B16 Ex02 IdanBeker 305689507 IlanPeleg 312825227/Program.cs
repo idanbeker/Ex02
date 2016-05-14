@@ -3,7 +3,7 @@
 
 namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
 
-    //TODO: check validity of input
+    
 {
     class Program
     {
@@ -26,6 +26,10 @@ namespace B16_Ex02_IdanBeker_305689507_IlanPeleg_312825227
             getNumberOfPlayers(out numOfPlayers);
             getGameBoardDimensions(out gameBoardHeight, out gameBoardLength);
             GameManager gm = new GameManager(numOfPlayers, gameBoardHeight, gameBoardLength);
+            // Clear console
+            Ex02.ConsoleUtils.Screen.Clear();
+            Board initialBoard = gm.getBoard();
+            System.Console.WriteLine(initialBoard.ToString());
             gm.StartGame();
 
             //System.Console.WriteLine("num of players:" + numOfPlayers + "dimensions" + gameBoardHeight + " " + gameBoardLength);
